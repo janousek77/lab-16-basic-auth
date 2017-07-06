@@ -15,5 +15,8 @@ module.exports = (err, req, res, next) => {
   if(err.message.includes('unauthorized'))
     return res.sendStatus(401);
 
+  if(err.message.includes('require'))
+    return res.sendStatus(401);
+
   res.sendStatus(500);
 };
