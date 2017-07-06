@@ -29,7 +29,6 @@ describe('testing article router', () => {
         .attach('image', `${__dirname}/assets/data.gif`);
       })
       .then(res => {
-        console.log('res.body', res.body);
         expect(res.status).toEqual(200);
         expect(res.body.content).toEqual('cool beans');
         expect(res.body.title).toEqual('example title');
@@ -37,5 +36,37 @@ describe('testing article router', () => {
         expect(res.body.photoURI).toExist();
       });
     });
+
+    it('should respond with an 401', () => {
+      let tempUserData;
+      return mockUser.createOne()
+      .then(userData => {
+        tempUserData = userData;
+        return superagent.post(`${API_URL}/api/articles`)
+        .set('Authorization', ``)
+        .field('title', 'example title')
+        .field('content', 'cool beans')
+        .attach('image', `${__dirname}/assets/data.gif`);
+      })
+      .catch(res => {
+        expect(res.status).toEqual(401);
+      });
+    });
+
+    // it('should respond with an 400', () => {
+    //   let tempUserData;
+    //   return mockUser.createOne()
+    //   .then(userData => {
+    //     tempUserData = userData;
+    //     return superagent.post(`${API_URL}/api/articles`)
+    //     .set('Authorization', `Bearer ${tempUserData.token}`)
+    //     .field('title', 'example title')
+    //     .field('content', 'hot beans')
+    //     .attach('image', `${__dirname}/assets/data.gif`);
+    //   })
+    //   .catch(res => {
+    //     expect(res.status).toEqual(400);
+    //   });
+    // });
   });
 });
