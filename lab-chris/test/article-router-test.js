@@ -53,20 +53,17 @@ describe('testing article router', () => {
       });
     });
 
-    // it('should respond with an 400', () => {
-    //   let tempUserData;
-    //   return mockUser.createOne()
-    //   .then(userData => {
-    //     tempUserData = userData;
-    //     return superagent.post(`${API_URL}/api/articles`)
-    //     .set('Authorization', `Bearer ${tempUserData.token}`)
-    //     .field('title', 'example title')
-    //     .field('content', 'hot beans')
-    //     .attach('image', `${__dirname}/assets/data.gif`);
-    //   })
-    //   .catch(res => {
-    //     expect(res.status).toEqual(400);
-    //   });
-    // });
+    it('should respond with an 400', () => {
+      let tempUserData;
+      return mockUser.createOne()
+      .then(userData => {
+        tempUserData = userData;
+        return superagent.post(`${API_URL}/api/articles`)
+        .set('Authorization', `Bearer ${tempUserData.token}`);
+      })
+      .catch(res => {
+        expect(res.status).toEqual(400);
+      });
+    });
   });
 });
