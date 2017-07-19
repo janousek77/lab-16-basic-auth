@@ -15,7 +15,7 @@ app.use(cors());
 
 app.use(require('../route/auth-router.js'));
 
-app.all('/api/*', (req, res, next) => res.sendStatus(404));
+app.all('/api/*', (req, res) => res.sendStatus(404));
 
 app.use(require('./error-middleware.js'));
 

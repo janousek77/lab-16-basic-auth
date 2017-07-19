@@ -20,50 +20,50 @@ describe('testing article router', () => {
     it('should respond with an article', () => {
       let tempUserData;
       return mockUser.createOne()
-      .then(userData => {
-        tempUserData = userData;
-        return superagent.post(`${API_URL}/api/articles`)
-        .set('Authorization', `Bearer ${tempUserData.token}`)
-        .field('title', 'example title')
-        .field('content', 'cool beans')
-        .attach('image', `${__dirname}/assets/data.gif`);
-      })
-      .then(res => {
-        expect(res.status).toEqual(200);
-        expect(res.body.content).toEqual('cool beans');
-        expect(res.body.title).toEqual('example title');
-        expect(res.body.userID).toEqual(tempUserData.user._id.toString());
-        expect(res.body.photoURI).toExist();
-      });
+        .then(userData => {
+          tempUserData = userData;
+          return superagent.post(`${API_URL}/api/articles`)
+            .set('Authorization', `Bearer ${tempUserData.token}`)
+            .field('title', 'example title')
+            .field('content', 'cool beans')
+            .attach('image', `${__dirname}/assets/data.gif`);
+        })
+        .then(res => {
+          expect(res.status).toEqual(200);
+          expect(res.body.content).toEqual('cool beans');
+          expect(res.body.title).toEqual('example title');
+          expect(res.body.userID).toEqual(tempUserData.user._id.toString());
+          expect(res.body.photoURI).toExist();
+        });
     });
 
     it('should respond with an 401', () => {
       let tempUserData;
       return mockUser.createOne()
-      .then(userData => {
-        tempUserData = userData;
-        return superagent.post(`${API_URL}/api/articles`)
-        .set('Authorization', ``)
-        .field('title', 'example title')
-        .field('content', 'cool beans')
-        .attach('image', `${__dirname}/assets/data.gif`);
-      })
-      .catch(res => {
-        expect(res.status).toEqual(401);
-      });
+        .then(userData => {
+          tempUserData = userData;
+          return superagent.post(`${API_URL}/api/articles`)
+            .set('Authorization', ``)
+            .field('title', 'example title')
+            .field('content', 'cool beans')
+            .attach('image', `${__dirname}/assets/data.gif`);
+        })
+        .catch(res => {
+          expect(res.status).toEqual(401);
+        });
     });
 
     it('should respond with an 400', () => {
       let tempUserData;
       return mockUser.createOne()
-      .then(userData => {
-        tempUserData = userData;
-        return superagent.post(`${API_URL}/api/articles`)
-        .set('Authorization', `Bearer ${tempUserData.token}`);
-      })
-      .catch(res => {
-        expect(res.status).toEqual(400);
-      });
+        .then(userData => {
+          tempUserData = userData;
+          return superagent.post(`${API_URL}/api/articles`)
+            .set('Authorization', `Bearer ${tempUserData.token}`);
+        })
+        .catch(res => {
+          expect(res.status).toEqual(400);
+        });
     });
   });
 });
