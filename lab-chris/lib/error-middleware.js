@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = (err, req, res, next) => {
+module.exports = (err, req, res) => {
   console.error(err.message);
 
   if(err.message.toLowerCase().includes('validation failed'))
